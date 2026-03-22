@@ -1,6 +1,7 @@
 {
   "name": "@ktmage/spekta-exporter-markdown",
   "version": "0.2.0",
+  "description": "Spekta Markdown Exporter — IR から Markdown 仕様書を生成",
   "type": "module",
   "main": "dist/render.js",
   "files": ["dist"],
