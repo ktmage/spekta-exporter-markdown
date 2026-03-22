@@ -32,8 +32,7 @@ export function renderMarkdown(ir: IR, outputPath: string): void {
 
 function renderPage(page: Page, pageById: Map<string, Page>, imagePaths: string[]): string {
   const lines: string[] = [];
-  const firstSection = page.children?.find((node): node is SectionNode => node.type === "section");
-  const displayTitle = firstSection?.title ?? page.title;
+  const displayTitle = page.title;
 
   lines.push(`# ${displayTitle}`);
   lines.push("");
@@ -81,6 +80,30 @@ function renderNodes(
         lines.push("```");
         lines.push("");
         break;
+      case "text":
+        lines.push(node.text);
+        lines.push("");
+        break;
+      case "code":
+        lines.push(`\`\`\`${node.language}`);
+        lines.push(node.text);
+        lines.push("```");
+        lines.push("");
+        break;
+      case "callout": {
+        const labelMap = { note: "Note", warning: "Warning", tip: "Tip" } as const;
+        lines.push(`> **${labelMap[node.variant]}**: ${node.text}`);
+        lines.push("");
+        break;
+      }
+      case "list":
+        if (node.children) {
+          for (const item of node.children) {
+            lines.push(`- ${item.text}`);
+          }
+          lines.push("");
+        }
+        break;
       case "steps":
         if (node.children) {
           let stepIndex = 1;
@@ -117,7 +140,6 @@ function renderSectionNode(
   lines.push("");
 
   if (sectionNode.children) {
-    // Render non-section nodes first, then child sections
     const nonSectionNodes = sectionNode.children.filter(
       (node) => node.type !== "section"
     );
