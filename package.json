@@ -1,15 +1,29 @@
 {
   "name": "@ktmage/spekta-exporter-markdown",
   "version": "0.2.0",
-  "description": "Spekta Markdown Exporter — IR から Markdown 仕様書を生成",
+  "description": "Spekta Markdown Exporter — Generate Markdown documentation from IR",
   "type": "module",
+  "license": "MIT",
+  "author": "ktmage",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ktmage/spekta.git",
+    "directory": "packages/exporters/markdown"
+  },
+  "homepage": "https://github.com/ktmage/spekta",
+  "bugs": "https://github.com/ktmage/spekta/issues",
+  "keywords": ["spekta", "exporter", "markdown", "specification", "documentation"],
   "main": "dist/render.js",
   "files": ["dist"],
-  "scripts": { "build": "tsc" },
-  "dependencies": {
-    "@ktmage/spekta": "workspace:*"
+  "engines": {
+    "node": ">=16.9.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": { "build": "tsc" },
   "devDependencies": {
+    "@ktmage/spekta": "workspace:*",
     "typescript": "^5.0.0",
     "@types/node": "^22.0.0"
   }
